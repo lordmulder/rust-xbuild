@@ -15,12 +15,12 @@ RUN install_packages \
     libz3-dev
 
 # Install Rust targets
-RUN rustup target add x86_64-unknown-linux-musl && \
-    rustup target add i686-unknown-linux-musl && \
+RUN rustup target add aarch64-unknown-linux-musl && \
     rustup target add i586-unknown-linux-musl && \
-    rustup target add aarch64-unknown-linux-musl && \
-    rustup target add riscv64gc-unknown-linux-musl && \
+    rustup target add i686-unknown-linux-musl && \
     rustup target add powerpc64le-unknown-linux-musl && \
+    rustup target add riscv64gc-unknown-linux-musl && \
+    rustup target add x86_64-unknown-linux-musl && \
     rustup component add rustfmt && \
     rustup component add rust-src
 
