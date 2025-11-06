@@ -7,15 +7,23 @@ Docker container with [Rust](https://hub.docker.com/_/rust) and Debian cross-bui
 <https://hub.docker.com/r/lordmulder/rust-xbuild>
 
 
-Supported toolchains
---------------------
+Supported targets
+-----------------
 
+**Linux targets:**
 - `aarch64-unknown-linux-musl`
 - `i586-unknown-linux-musl`
 - `i686-unknown-linux-musl`
 - `powerpc64le-unknown-linux-musl`
 - `riscv64gc-unknown-linux-musl`
 - `x86_64-unknown-linux-musl`
+
+**FreeBSD targets:**
+- `x86_64-unknown-freebsd`
+- `i686-unknown-freebsd`
+
+**NetBSD targets:**
+- `x86_64-unknown-netbsd`
 
 
 The "xbuild" script
@@ -28,15 +36,17 @@ Just run the following command from your Rust project directory:
 cargo xbuild --release
 ```
 
-By default, this script will build *all* supported platforms.
+**Note:** This script is supposed to be executed from *within* the provided Docker container!
 
-The environment variable `RUST_XARCH` can be used to specify the platforms to build.
+By default, the script will build *all* supported targets.
+
+The environment variable `RUST_XBUILD_TARGET` can be used to specify the target(s) to build.
 
 
 Docker integration
 ------------------
 
-To build your project with `cargo-xbuild` inside the Docker container:
+To build your project with `cargo-xbuild` directly from the host, invoke Docker like this:
 
 ```sh
 docker run --rm -v /path/to/source:/workspace -w /workspace \

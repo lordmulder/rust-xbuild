@@ -48,7 +48,7 @@ jobs:
       - name: Pull and save the Docker image
         run: |
           docker image pull lordmulder/rust-xbuild:${{ github.ref_name }}
-          docker image save lordmulder/rust-xbuild:${{ github.ref_name }} | xz -5v > rust_xbuild-${{ github.ref_name }}.tar.xz
+          docker image save lordmulder/rust-xbuild:${{ github.ref_name }} | xz -7v > rust_xbuild-${{ github.ref_name }}.tar.xz
 
       - name: Upload image to GitHub release
         uses: Roang-zero1/github-upload-release-artifacts-action@v2
