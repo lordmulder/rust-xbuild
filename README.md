@@ -53,6 +53,8 @@ docker run --rm -v /path/to/source:/workspace -w /workspace \
 lordmulder/rust-xbuild cargo xbuild --release
 ```
 
+Please see [**`do-xbuild.sh`**](example/do-xbuild.sh) in the "example" directory for details!
+
 
 Manual usage
 ------------
