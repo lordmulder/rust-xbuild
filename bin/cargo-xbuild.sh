@@ -4,7 +4,7 @@ set -eo pipefail
 if [ -z "${RUST_XBUILD_TARGET}" ]; then
     xarch_list=(x86_64-unknown-linux-musl i586-unknown-linux-musl i686-unknown-linux-musl aarch64-unknown-linux-musl)
     xarch_list+=(powerpc64le-unknown-linux-musl riscv64gc-unknown-linux-musl)
-    xarch_list+=(x86_64-unknown-freebsdi686-unknown-freebsd x86_64-unknown-netbsd)
+    xarch_list+=(x86_64-unknown-freebsd i686-unknown-freebsd x86_64-unknown-netbsd)
 else
     xarch_list=(${RUST_XBUILD_TARGET})
 fi
