@@ -1,5 +1,5 @@
 # Rust version
-FROM rust:1.91-trixie
+FROM rust:1.91.1-trixie
 
 # Provide the 'install_packages' helper script
 COPY bin/install_packages.sh /usr/sbin/install_packages
