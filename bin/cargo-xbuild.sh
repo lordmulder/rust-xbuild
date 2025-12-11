@@ -33,9 +33,6 @@ for xarch in "${xarch_list[@]}"; do
         riscv64gc-unknown-linux-musl)
             xarch_linker="-Clinker=riscv64-linux-gnu-gcc -Ctarget-feature=+crt-static"
             ;;
-        i686-unknown-freebsd)
-            xarch_linker="-Clinker=clang -Clink-arg=--target=i686-unknown-freebsd -Clink-arg=-fuse-ld=lld -Clink-arg=--sysroot=/opt/sysroot/freebsd/i386 -Ctarget-feature=+crt-static"
-            ;;
         x86_64-unknown-freebsd)
             xarch_linker="-Clinker=clang -Clink-arg=--target=x86_64-unknown-freebsd -Clink-arg=-fuse-ld=lld -Clink-arg=--sysroot=/opt/sysroot/freebsd/amd64 -Ctarget-feature=+crt-static"
             ;;
