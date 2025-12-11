@@ -10,3 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 
 - Rust base image updated to version `1.92.0`
+
+### Removed
+
+- Dropped 'i686' support FreeBSD, because FreeBSD 15.0 no longer supports it.
