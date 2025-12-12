@@ -20,7 +20,6 @@ Supported targets
 
 **FreeBSD targets:**
 - `x86_64-unknown-freebsd`
-- `i686-unknown-freebsd`
 
 **NetBSD targets:**
 - `x86_64-unknown-netbsd`

@@ -15,6 +15,7 @@ RUN install_packages \
     git \
     libz3-dev \
     lld \
+    make \
     musl-tools \
     ruby-dev \
     xz-utils
