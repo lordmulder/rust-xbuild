@@ -33,7 +33,6 @@ RUN rustup target add aarch64-unknown-linux-musl && \
     rustup component add rust-src
 
 # Install LLVM linker tools
-
 RUN curl -sSf -o /var/tmp/libllvm21.deb http://ftp.debian.org/debian/pool/main/l/llvm-toolchain-21/libllvm21_21.1.7-1_amd64.deb && \
     curl -sSf -o /var/tmp/llvm-21-linker-tools.deb http://ftp.debian.org/debian/pool/main/l/llvm-toolchain-21/llvm-21-linker-tools_21.1.7-1_amd64.deb && \
     curl -sSf -o /var/tmp/libxml2-16.deb http://ftp.debian.org/debian/pool/main/libx/libxml2/libxml2-16_2.15.1+dfsg-2+b1_amd64.deb && \
@@ -49,6 +48,18 @@ RUN mkdir -p /opt/sysroot/freebsd/i386 /opt/sysroot/freebsd/amd64 && \
 RUN mkdir -p /opt/sysroot/netbsd/amd64 && \
     curl -sSf https://cdn.netbsd.org/pub/NetBSD/NetBSD-10.1/amd64/binary/sets/base.tar.xz | tar -C /opt/sysroot/netbsd/amd64 -xJ ./lib ./usr/lib && \
     curl -sSf https://cdn.netbsd.org/pub/NetBSD/NetBSD-10.1/amd64/binary/sets/comp.tar.xz | tar -C /opt/sysroot/netbsd/amd64 -xJ ./usr/lib
+
+# Build musl libc for all supported targets
+RUN curl -vkf -o /tmp/musl-latest.tar.gz https://musl.libc.org/releases/musl-latest.tar.gz && \
+    for target_host in i686 x86_64 aarch64 riscv64; do \
+        mkdir -p /tmp/musl-build-${target_host} && \
+        tar -xvf /tmp/musl-latest.tar.gz --strip-components=1 -C /tmp/musl-build-${target_host} && \
+        cd /tmp/musl-build-${target_host} && \
+        ./configure --disable-shared --prefix=/usr/local/musl/${target_host} --host=${target_host}-linux-gnu && \
+        make && make install && \
+        cd /tmp && rm -rf musl-build-${target_host}; \
+    done && \
+    rm -f /tmp/musl-latest.tar.gz
 
 # Install fpm
 RUN gem install --no-document fpm && \
