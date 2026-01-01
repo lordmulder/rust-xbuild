@@ -1,5 +1,5 @@
 # Rust version
-FROM rust:1.92.0-slim-trixie@sha256:0d8bf269f3ab28ddcdc3a182f519d7499daee82ce2faa4008048ae8adf6977e7
+FROM rust:1.92.0-slim-trixie@sha256:6cff8a33b03d328aa58d00dedda6a3c5bbee4b41e21533932bffd90d7d58f9c4
 
 # Provide the 'install_packages' helper script
 COPY bin/install_packages.sh /usr/sbin/install_packages
