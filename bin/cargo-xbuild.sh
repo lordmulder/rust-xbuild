@@ -4,7 +4,7 @@ set -eo pipefail
 if [ -z "${RUST_XBUILD_TARGET}" ]; then
     xarch_list=(x86_64-unknown-linux-musl i586-unknown-linux-musl i686-unknown-linux-musl aarch64-unknown-linux-musl)
     xarch_list+=(powerpc64le-unknown-linux-musl riscv64gc-unknown-linux-musl)
-    xarch_list+=(x86_64-unknown-freebsd x86_64-unknown-netbsd)
+    xarch_list+=(x86_64-unknown-freebsd i686-unknown-freebsd x86_64-unknown-netbsd)
 else
     xarch_list=(${RUST_XBUILD_TARGET})
 fi
@@ -35,6 +35,9 @@ for xarch in "${xarch_list[@]}"; do
             ;;
         x86_64-unknown-freebsd)
             xarch_linker="-Clinker=clang -Clink-arg=--target=x86_64-unknown-freebsd -Clink-arg=-fuse-ld=lld -Clink-arg=--sysroot=/opt/sysroot/freebsd/amd64 -Ctarget-feature=+crt-static"
+            ;;
+        i686-unknown-freebsd)
+            xarch_linker="-Clinker=clang -Clink-arg=--target=i686-unknown-freebsd -Clink-arg=-fuse-ld=lld -Clink-arg=--sysroot=/opt/sysroot/freebsd/i386 -Ctarget-feature=+crt-static"
             ;;
         x86_64-unknown-netbsd)
             xarch_linker="-Clinker=clang -Clink-arg=--target=x86_64-unknown-netbsd -Clink-arg=-fuse-ld=lld -Clink-arg=--sysroot=/opt/sysroot/netbsd/amd64 -Ctarget-feature=+crt-static"

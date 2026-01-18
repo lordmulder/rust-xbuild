@@ -23,6 +23,7 @@ RUN install_packages \
 # Install Rust targets
 RUN rustup target add aarch64-unknown-linux-musl && \
     rustup target add i586-unknown-linux-musl && \
+    rustup target add i686-unknown-freebsd && \
     rustup target add i686-unknown-linux-musl && \
     rustup target add powerpc64le-unknown-linux-musl && \
     rustup target add riscv64gc-unknown-linux-musl && \
@@ -42,7 +43,8 @@ RUN curl -sSf -o /var/tmp/libllvm21.deb http://ftp.debian.org/debian/pool/main/l
 
 # Install "sysroot" for FreeBSD
 RUN mkdir -p /opt/sysroot/freebsd/i386 /opt/sysroot/freebsd/amd64 && \
-    curl -sSf https://download.freebsd.org/ftp/releases/amd64/15.0-RELEASE/base.txz | tar -C /opt/sysroot/freebsd/amd64 -xJ ./lib ./usr/lib
+    curl -sSf https://download.freebsd.org/ftp/releases/amd64/15.0-RELEASE/base.txz | tar -C /opt/sysroot/freebsd/amd64 -xJ ./lib ./usr/lib && \
+    curl -sSf https://download.freebsd.org/ftp/releases/i386/14.3-RELEASE/base.txz  | tar -C /opt/sysroot/freebsd/i386  -xJ ./lib ./usr/lib
 
 # Install "sysroot" for NetBSD
 RUN mkdir -p /opt/sysroot/netbsd/amd64 && \
