@@ -5,6 +5,18 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## 1.93-trixie-r1
+
+### Changed
+
+- Rust base image updated to version `1.93.0` (2026-01-22).
+
+## 1.92-trixie-r5
+
+### Changed
+
+- Rust base image updated to version `1.92.0` (2026-01-01).
+
 ## 1.92-trixie-r4
 
 ### Added
