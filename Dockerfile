@@ -1,5 +1,5 @@
 # Rust version
-FROM rust:1.93.0-slim-trixie@sha256:df6ca8f96d338697ccdbe3ccac57a85d2172e03a2429c2d243e74f3bb83ba2f5
+FROM rust:1.93.0-slim-trixie@sha256:e2367a80bfc3cf85e5794dcfe0b9699f96b61f5aaf8c449b4d4e25d38976d987
 
 # Provide the 'install_packages' helper script
 COPY bin/install_packages.sh /usr/sbin/install_packages
@@ -31,7 +31,12 @@ RUN rustup target add aarch64-unknown-linux-musl && \
     rustup target add x86_64-unknown-linux-musl && \
     rustup target add x86_64-unknown-netbsd && \
     rustup component add rustfmt && \
+    rustup component add clippy && \
     rustup component add rust-src
+
+# Install cargo-edit
+RUN cargo install cargo-edit && \
+    rm -rf /usr/local/cargo/.global-cache /usr/local/cargo/.package-cache /usr/local/cargo/.package-cache-mutate /usr/local/cargo/registry
 
 # Install LLVM linker tools
 RUN curl -sSf -o /var/tmp/libllvm21.deb http://ftp.debian.org/debian/pool/main/l/llvm-toolchain-21/libllvm21_21.1.8-1+b1_amd64.deb && \
