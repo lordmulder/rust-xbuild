@@ -69,14 +69,17 @@ RUN curl -vkf -o /tmp/musl-latest.tar.gz https://musl.libc.org/releases/musl-lat
     rm -f /tmp/musl-latest.tar.gz
 
 # Install AppImage tool
-RUN curl -Lfo /usr/local/bin/appimagetool https://github.com/AppImage/appimagetool/releases/download/continuous/appimagetool-x86_64.AppImage && \
-    chmod 555 /usr/local/bin/appimagetool && \
-    mkdir -p /usr/local/lib/appimage/runtimes && \
-    for arch in i686 x86_64 aarch64; do \
-        curl -Lfo /usr/local/lib/appimage/runtimes/runtime-$arch https://github.com/AppImage/type2-runtime/releases/download/20251108/runtime-$arch && \
-        chmod 555 /usr/local/lib/appimage/runtimes/runtime-$arch; \
+RUN mkdir -p /opt/appimage/runtimes && \
+    curl -Lfo /opt/appimage/appimagetool.AppImage https://github.com/AppImage/appimagetool/releases/download/continuous/appimagetool-x86_64.AppImage && \
+    chmod 555 /opt/appimage/appimagetool.AppImage && \
+    for arch in i686 x86_64 armhf aarch64; do \
+        curl -Lfo /opt/appimage/runtimes/runtime-$arch https://github.com/AppImage/type2-runtime/releases/download/continuous/runtime-$arch && \
+        chmod 555 /opt/appimage/runtimes/runtime-$arch; \
     done && \
     git config --global --add safe.directory '*'
+
+# Workaround to make appimagetool.AppImage work inside of Docker
+ENV APPIMAGE_EXTRACT_AND_RUN=1
 
 # Set up the 'cargo xbuild' command
 COPY bin/cargo-xbuild.sh /usr/local/cargo/bin/cargo-xbuild
