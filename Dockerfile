@@ -1,5 +1,5 @@
 # Rust version
-FROM rust:1.93.0-slim-trixie@sha256:e2367a80bfc3cf85e5794dcfe0b9699f96b61f5aaf8c449b4d4e25d38976d987
+FROM rust:1.93.0-slim-trixie@sha256:760ad1d638d70ebbd0c61e06210e1289cbe45ff6425e3ea6e01241de3e14d08e
 
 # Provide the 'install_packages' helper script
 COPY bin/install_packages.sh /usr/sbin/install_packages
@@ -12,12 +12,12 @@ RUN install_packages \
     crossbuild-essential-ppc64el \
     crossbuild-essential-riscv64 \
     curl \
+    file \
     git \
     libz3-dev \
     lld \
     make \
     musl-tools \
-    ruby-dev \
     xz-utils
 
 # Install Rust targets
@@ -68,8 +68,14 @@ RUN curl -vkf -o /tmp/musl-latest.tar.gz https://musl.libc.org/releases/musl-lat
     done && \
     rm -f /tmp/musl-latest.tar.gz
 
-# Install fpm
-RUN gem install --no-document fpm && \
+# Install AppImage tool
+RUN curl -Lfo /usr/local/bin/appimagetool https://github.com/AppImage/appimagetool/releases/download/continuous/appimagetool-x86_64.AppImage && \
+    chmod 555 /usr/local/bin/appimagetool && \
+    mkdir -p /usr/local/lib/appimage/runtimes && \
+    for arch in i686 x86_64 aarch64; do \
+        curl -Lfo /usr/local/lib/appimage/runtimes/runtime-$arch https://github.com/AppImage/type2-runtime/releases/download/20251108/runtime-$arch && \
+        chmod 555 /usr/local/lib/appimage/runtimes/runtime-$arch; \
+    done && \
     git config --global --add safe.directory '*'
 
 # Set up the 'cargo xbuild' command
