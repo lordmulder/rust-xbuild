@@ -5,6 +5,18 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## 1.93-trixie-r5
+
+### Changed
+
+- Rust base image updated to version `1.93.1` (2026-02-13).
+
+## 1.93-trixie-r4
+
+### Changed
+
+- Some improvements to how `appimagetool` is added to the image.
+
 ## 1.93-trixie-r3
 
 ### Changed
