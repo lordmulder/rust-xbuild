@@ -1,5 +1,5 @@
 # Rust version
-FROM rust:1.93.1-slim-trixie@sha256:9663b80a1621253d30b146454f903de48f0af925c967be48c84745537cd35d8b
+FROM rust:1.93.1-slim-trixie@sha256:7e6fa79cf81be23fd45d857f75f583d80cfdbb11c91fa06180fd747fda37a61d
 
 # Provide the 'install_packages' helper script
 COPY bin/install_packages.sh /usr/sbin/install_packages
@@ -62,7 +62,7 @@ RUN curl -vkf -o /tmp/musl-latest.tar.gz https://musl.libc.org/releases/musl-lat
         mkdir -p /tmp/musl-build-${target_host} && \
         tar -xvf /tmp/musl-latest.tar.gz --strip-components=1 -C /tmp/musl-build-${target_host} && \
         cd /tmp/musl-build-${target_host} && \
-        ./configure --disable-shared --prefix=/usr/local/musl/${target_host} --host=${target_host}-linux-gnu && \
+        ./configure --disable-shared --prefix=/usr/local/musl/${target_host} --host=${target_host}-linux-gnu --enable-optimize=aio,complex,conf,crypt,ctype,dirent,env,errno,exit,fcntl,fenv,include,internal,ipc,ldso,legacy,linux,locale,malloc,math,misc,mman,mq,multibyte,network,passwd,prng,process,regex,sched,search,select,setjmp,signal,stat,stdio,stdlib,string,temp,termios,thread,time,unistd && \
         make && make install && \
         cd /tmp && rm -rf musl-build-${target_host}; \
     done && \
