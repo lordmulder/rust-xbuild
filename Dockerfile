@@ -62,8 +62,10 @@ RUN curl -vkf -o /tmp/musl-latest.tar.gz https://musl.libc.org/releases/musl-lat
         mkdir -p /tmp/musl-build-${target_host} && \
         tar -xvf /tmp/musl-latest.tar.gz --strip-components=1 -C /tmp/musl-build-${target_host} && \
         cd /tmp/musl-build-${target_host} && \
-        ./configure --disable-shared --prefix=/usr/local/musl/${target_host} --host=${target_host}-linux-gnu --enable-optimize=aio,complex,conf,crypt,ctype,dirent,env,errno,exit,fcntl,fenv,include,internal,ipc,ldso,legacy,linux,locale,malloc,math,misc,mman,mq,multibyte,network,passwd,prng,process,regex,sched,search,select,setjmp,signal,stat,stdio,stdlib,string,temp,termios,thread,time,unistd && \
+        ./configure --disable-shared --enable-static --prefix=/usr/local/musl/${target_host} --host=${target_host}-linux-gnu --enable-optimize="*" && \
+        sed -i 's|-fPIC|-fomit-frame-pointer|g' Makefile && \
         make && make install && \
+        ln -snf /usr/local/musl/${target_host}/lib/*.a /usr/local/musl/${target_host}/lib/*.o /usr/local/rustup/toolchains/1.93.1-x86_64-unknown-linux-gnu/lib/rustlib/$([ "${target_host}" = "riscv64" ] && echo "${target_host}gc" || echo "${target_host}")-unknown-linux-musl/lib/self-contained/ && \
         cd /tmp && rm -rf musl-build-${target_host}; \
     done && \
     rm -f /tmp/musl-latest.tar.gz
