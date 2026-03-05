@@ -1,5 +1,5 @@
 # Rust version
-FROM rust:1.93.1-slim-trixie@sha256:c0a38f5662afdb298898da1d70b909af4bda4e0acff2dc52aea6360a9b9c6956
+FROM rust:1.94.0-slim-trixie@sha256:d6782f2b326a10eaf593eb90cafc34a03a287b4a25fe4d0c693c90304b06f6d7
 
 # Provide the 'install_packages' helper script
 COPY bin/install_packages.sh /usr/sbin/install_packages
@@ -65,7 +65,7 @@ RUN curl -vkf -o /tmp/musl-latest.tar.gz https://musl.libc.org/releases/musl-lat
         ./configure --disable-shared --enable-static --prefix=/usr/local/musl/${target_host} --host=${target_host}-linux-gnu --enable-optimize="*" && \
         sed -i 's|-fPIC|-fomit-frame-pointer|g' Makefile && \
         make && make install && \
-        ln -snf /usr/local/musl/${target_host}/lib/*.a /usr/local/musl/${target_host}/lib/*.o /usr/local/rustup/toolchains/1.93.1-x86_64-unknown-linux-gnu/lib/rustlib/$([ "${target_host}" = "riscv64" ] && echo "${target_host}gc" || echo "${target_host}")-unknown-linux-musl/lib/self-contained/ && \
+        ln -snf /usr/local/musl/${target_host}/lib/*.a /usr/local/musl/${target_host}/lib/*.o /usr/local/rustup/toolchains/1.94.0-x86_64-unknown-linux-gnu/lib/rustlib/$([ "${target_host}" = "riscv64" ] && echo "${target_host}gc" || echo "${target_host}")-unknown-linux-musl/lib/self-contained/ && \
         cd /tmp && rm -rf musl-build-${target_host}; \
     done && \
     rm -f /tmp/musl-latest.tar.gz
