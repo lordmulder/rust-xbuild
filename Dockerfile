@@ -1,5 +1,9 @@
+# Version
+ARG MY_RUST_VERS=1.94.1
+ARG MY_RUST_HASH=1d0000a49fb62f4fde24455f49d59c6c088af46202d65d8f455b722f7263e8f8
+
 # Rust version
-FROM rust:1.94.0-slim-trixie@sha256:f7bf1c266d9e48c8d724733fd97ba60464c44b743eb4f46f935577d3242d81d0
+FROM rust:${MY_RUST_VERS}-slim-trixie@sha256:${MY_RUST_HASH}
 
 # Provide the 'install_packages' helper script
 COPY bin/install_packages.sh /usr/sbin/install_packages
@@ -57,6 +61,7 @@ RUN mkdir -p /opt/sysroot/netbsd/amd64 && \
     curl -sSf https://cdn.netbsd.org/pub/NetBSD/NetBSD-10.1/amd64/binary/sets/comp.tar.xz | tar -C /opt/sysroot/netbsd/amd64 -xJ ./usr/lib
 
 # Build musl libc for all supported targets
+ARG MY_RUST_VERS
 RUN curl -vkf -o /tmp/musl-latest.tar.gz https://musl.libc.org/releases/musl-latest.tar.gz && \
     for target_host in i686 x86_64 aarch64 riscv64; do \
         mkdir -p /tmp/musl-build-${target_host} && \
@@ -65,7 +70,7 @@ RUN curl -vkf -o /tmp/musl-latest.tar.gz https://musl.libc.org/releases/musl-lat
         ./configure --disable-shared --enable-static --prefix=/usr/local/musl/${target_host} --host=${target_host}-linux-gnu --enable-optimize="*" && \
         sed -i 's|-fPIC|-fomit-frame-pointer|g' Makefile && \
         make && make install && \
-        ln -snf /usr/local/musl/${target_host}/lib/*.a /usr/local/musl/${target_host}/lib/*.o /usr/local/rustup/toolchains/1.94.0-x86_64-unknown-linux-gnu/lib/rustlib/$([ "${target_host}" = "riscv64" ] && echo "${target_host}gc" || echo "${target_host}")-unknown-linux-musl/lib/self-contained/ && \
+        ln -snf /usr/local/musl/${target_host}/lib/*.a /usr/local/musl/${target_host}/lib/*.o /usr/local/rustup/toolchains/${MY_RUST_VERS}-x86_64-unknown-linux-gnu/lib/rustlib/$([ "${target_host}" = "riscv64" ] && echo "${target_host}gc" || echo "${target_host}")-unknown-linux-musl/lib/self-contained/ && \
         cd /tmp && rm -rf musl-build-${target_host}; \
     done && \
     rm -f /tmp/musl-latest.tar.gz
