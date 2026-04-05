@@ -22,6 +22,7 @@ RUN install_packages \
     lld \
     make \
     musl-tools \
+    pandoc \
     xz-utils
 
 # Install Rust targets
