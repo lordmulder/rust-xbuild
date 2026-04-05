@@ -44,9 +44,9 @@ RUN cargo install cargo-edit && \
     rm -rf /usr/local/cargo/.global-cache /usr/local/cargo/.package-cache /usr/local/cargo/.package-cache-mutate /usr/local/cargo/registry
 
 # Install LLVM linker tools
-RUN curl -sSf -o /var/tmp/libllvm21.deb http://ftp.debian.org/debian/pool/main/l/llvm-toolchain-21/libllvm21_21.1.8-3+b1_amd64.deb && \
-    curl -sSf -o /var/tmp/llvm-21-linker-tools.deb http://ftp.debian.org/debian/pool/main/l/llvm-toolchain-21/llvm-21-linker-tools_21.1.8-3+b1_amd64.deb && \
-    curl -sSf -o /var/tmp/libxml2-16.deb http://ftp.debian.org/debian/pool/main/libx/libxml2/libxml2-16_2.15.1+dfsg-2+b1_amd64.deb && \
+RUN curl -sSf -o /var/tmp/libllvm21.deb http://ftp.debian.org/debian/pool/main/l/llvm-toolchain-21/libllvm21_21.1.8-7_amd64.deb && \
+    curl -sSf -o /var/tmp/llvm-21-linker-tools.deb http://ftp.debian.org/debian/pool/main/l/llvm-toolchain-21/llvm-21-linker-tools_21.1.8-7_amd64.deb && \
+    curl -sSf -o /var/tmp/libxml2-16.deb http://ftp.debian.org/debian/pool/main/libx/libxml2/libxml2-16_2.15.2+dfsg-0.1_amd64.deb && \
     export DEBIAN_FRONTEND=noninteractive && \
     apt-get install -y /var/tmp/libxml2-16.deb /var/tmp/libllvm21.deb /var/tmp/llvm-21-linker-tools.deb && \
     rm -f /var/tmp/libxml2-16.deb /var/tmp/libllvm21.deb /var/tmp/llvm-21-linker-tools.deb
