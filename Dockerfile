@@ -44,8 +44,8 @@ RUN cargo install cargo-edit && \
     rm -rf /usr/local/cargo/.global-cache /usr/local/cargo/.package-cache /usr/local/cargo/.package-cache-mutate /usr/local/cargo/registry
 
 # Install LLVM linker tools
-RUN curl -sSf -o /var/tmp/libllvm22.deb http://ftp.debian.org/debian/pool/main/l/llvm-toolchain-22/libllvm22_22.1.3-1+b1_amd64.deb && \
-    curl -sSf -o /var/tmp/llvm-22-linker-tools.deb http://ftp.debian.org/debian/pool/main/l/llvm-toolchain-22/llvm-22-linker-tools_22.1.3-1+b1_amd64.deb && \
+RUN curl -sSf -o /var/tmp/libllvm22.deb http://ftp.debian.org/debian/pool/main/l/llvm-toolchain-22/libllvm22_22.1.5-1_amd64.deb && \
+    curl -sSf -o /var/tmp/llvm-22-linker-tools.deb http://ftp.debian.org/debian/pool/main/l/llvm-toolchain-22/llvm-22-linker-tools_22.1.5-1_amd64.deb && \
     curl -sSf -o /var/tmp/libxml2-16.deb http://ftp.debian.org/debian/pool/main/libx/libxml2/libxml2-16_2.15.2+dfsg-0.1_amd64.deb && \
     export DEBIAN_FRONTEND=noninteractive && \
     apt-get install -y /var/tmp/libxml2-16.deb /var/tmp/libllvm22.deb /var/tmp/llvm-22-linker-tools.deb && \
