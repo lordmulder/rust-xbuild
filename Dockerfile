@@ -1,6 +1,6 @@
 # Version
-ARG MY_RUST_VERS=1.96.0
-ARG MY_RUST_HASH=3b05f7c617a200c41c3506097f0d15fc193a1c93bfd8f141007b47cac8f95d3c
+ARG MY_RUST_VERS=1.96.1
+ARG MY_RUST_HASH=31ee7fc65186be7e0e0ccb3f2ca305f14e4739e7642a1ae65753aa5d7b874523
 
 # Rust version
 FROM rust:${MY_RUST_VERS}-slim-trixie@sha256:${MY_RUST_HASH}
@@ -44,8 +44,8 @@ RUN cargo install cargo-edit && \
     rm -rf /usr/local/cargo/.global-cache /usr/local/cargo/.package-cache /usr/local/cargo/.package-cache-mutate /usr/local/cargo/registry
 
 # Install LLVM linker tools
-RUN curl -sSf -o /var/tmp/libllvm22.deb http://ftp.debian.org/debian/pool/main/l/llvm-toolchain-22/libllvm22_22.1.7-1+b2_amd64.deb && \
-    curl -sSf -o /var/tmp/llvm-22-linker-tools.deb http://ftp.debian.org/debian/pool/main/l/llvm-toolchain-22/llvm-22-linker-tools_22.1.7-1+b2_amd64.deb && \
+RUN curl -sSf -o /var/tmp/libllvm22.deb http://ftp.debian.org/debian/pool/main/l/llvm-toolchain-22/libllvm22_22.1.8-1+b1_amd64.deb && \
+    curl -sSf -o /var/tmp/llvm-22-linker-tools.deb http://ftp.debian.org/debian/pool/main/l/llvm-toolchain-22/llvm-22-linker-tools_22.1.8-1+b1_amd64.deb && \
     curl -sSf -o /var/tmp/libxml2-16.deb http://ftp.debian.org/debian/pool/main/libx/libxml2/libxml2-16_2.15.3+dfsg-1_amd64.deb && \
     export DEBIAN_FRONTEND=noninteractive && \
     apt-get install -y /var/tmp/libxml2-16.deb /var/tmp/libllvm22.deb /var/tmp/llvm-22-linker-tools.deb && \
@@ -53,7 +53,7 @@ RUN curl -sSf -o /var/tmp/libllvm22.deb http://ftp.debian.org/debian/pool/main/l
 
 # Install "sysroot" for FreeBSD
 RUN mkdir -p /opt/sysroot/freebsd/i386 /opt/sysroot/freebsd/amd64 && \
-    curl -sSf https://download.freebsd.org/ftp/releases/amd64/15.0-RELEASE/base.txz | tar -C /opt/sysroot/freebsd/amd64 -xJ ./lib ./usr/lib && \
+    curl -sSf https://download.freebsd.org/ftp/releases/amd64/15.1-RELEASE/base.txz | tar -C /opt/sysroot/freebsd/amd64 -xJ ./lib ./usr/lib && \
     curl -sSf https://download.freebsd.org/ftp/releases/i386/14.3-RELEASE/base.txz  | tar -C /opt/sysroot/freebsd/i386  -xJ ./lib ./usr/lib
 
 # Install "sysroot" for NetBSD
