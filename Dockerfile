@@ -1,6 +1,6 @@
 # Version
-ARG MY_RUST_VERS=1.97.1
-ARG MY_RUST_HASH=3b2879047d42784ca9403ad20c51ed3df361a50f1df96f5777d39b4e33aa65cd
+ARG MY_RUST_VERS=1.98.0
+ARG MY_RUST_HASH=cc0448b41c3b7b7fea44f5dc50eacba729a56db365b65b7bd5e8a82d5b3db078
 
 # Rust version
 FROM rust:${MY_RUST_VERS}-slim-trixie@sha256:${MY_RUST_HASH}
@@ -58,8 +58,8 @@ RUN mkdir -p /opt/sysroot/freebsd/i386 /opt/sysroot/freebsd/amd64 && \
 
 # Install "sysroot" for NetBSD
 RUN mkdir -p /opt/sysroot/netbsd/amd64 && \
-    curl -sSf https://cdn.netbsd.org/pub/NetBSD/NetBSD-10.1/amd64/binary/sets/base.tar.xz | tar -C /opt/sysroot/netbsd/amd64 -xJ ./lib ./usr/lib && \
-    curl -sSf https://cdn.netbsd.org/pub/NetBSD/NetBSD-10.1/amd64/binary/sets/comp.tar.xz | tar -C /opt/sysroot/netbsd/amd64 -xJ ./usr/lib
+    curl -sSf https://cdn.netbsd.org/pub/NetBSD/NetBSD-11.0/amd64/binary/sets/base.tar.xz | tar -C /opt/sysroot/netbsd/amd64 -xJ ./lib ./usr/lib && \
+    curl -sSf https://cdn.netbsd.org/pub/NetBSD/NetBSD-11.0/amd64/binary/sets/comp.tar.xz | tar -C /opt/sysroot/netbsd/amd64 -xJ ./usr/lib
 
 # Build musl libc for all supported targets
 ARG MY_RUST_VERS
