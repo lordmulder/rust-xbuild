@@ -9,6 +9,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
+- Rust base image updated to version `1.98.0` (2026-08-25).
+
+## 1.98-trixie-r1
+
+### Changed
+
 - Rust base image updated to version `1.98.0` (2026-08-20).
 
 ## 1.97-trixie-r3
