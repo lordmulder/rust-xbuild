@@ -1,6 +1,6 @@
 # Version
-ARG MY_RUST_VERS=1.98.0
-ARG MY_RUST_HASH=17d1ba895198f9934c6314ec5346a0d5115372f3243390c3d731e242f35c2f27
+ARG MY_RUST_VERS=1.98.1
+ARG MY_RUST_HASH=ce84a5edd80c5f91e05c5533b1e53eb1da54028f33734dc06aa6b49fa190462d
 
 # Rust version
 FROM rust:${MY_RUST_VERS}-slim-trixie@sha256:${MY_RUST_HASH}
@@ -54,7 +54,7 @@ RUN curl -sSf -o /var/tmp/libllvm22.deb http://ftp.debian.org/debian/pool/main/l
 # Install "sysroot" for FreeBSD
 RUN mkdir -p /opt/sysroot/freebsd/i386 /opt/sysroot/freebsd/amd64 && \
     curl -sSf https://download.freebsd.org/ftp/releases/amd64/15.1-RELEASE/base.txz | tar -C /opt/sysroot/freebsd/amd64 -xJ ./lib ./usr/lib && \
-    curl -sSf https://download.freebsd.org/ftp/releases/i386/14.4-RELEASE/base.txz  | tar -C /opt/sysroot/freebsd/i386  -xJ ./lib ./usr/lib
+    curl -sSf https://download.freebsd.org/ftp/releases/i386/14.5-RELEASE/base.txz  | tar -C /opt/sysroot/freebsd/i386  -xJ ./lib ./usr/lib
 
 # Install "sysroot" for NetBSD
 RUN mkdir -p /opt/sysroot/netbsd/amd64 && \
