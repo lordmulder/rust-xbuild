@@ -1,6 +1,6 @@
 # Version
 ARG MY_RUST_VERS=1.98.1
-ARG MY_RUST_HASH=ce84a5edd80c5f91e05c5533b1e53eb1da54028f33734dc06aa6b49fa190462d
+ARG MY_RUST_HASH=f47a8de237dcbb0b0ce1099901e60a89728e3d51f24e664b40e947171538ade7
 
 # Rust version
 FROM rust:${MY_RUST_VERS}-slim-trixie@sha256:${MY_RUST_HASH}
@@ -46,7 +46,7 @@ RUN cargo install cargo-edit && \
 # Install LLVM linker tools
 RUN curl -sSf -o /var/tmp/libllvm22.deb http://ftp.debian.org/debian/pool/main/l/llvm-toolchain-22/libllvm22_22.1.8-1+b2_amd64.deb && \
     curl -sSf -o /var/tmp/llvm-22-linker-tools.deb http://ftp.debian.org/debian/pool/main/l/llvm-toolchain-22/llvm-22-linker-tools_22.1.8-1+b2_amd64.deb && \
-    curl -sSf -o /var/tmp/libxml2-16.deb http://ftp.debian.org/debian/pool/main/libx/libxml2/libxml2-16_2.15.3+dfsg-1_amd64.deb && \
+    curl -sSf -o /var/tmp/libxml2-16.deb http://ftp.debian.org/debian/pool/main/libx/libxml2/libxml2-16_2.15.4+dfsg-1_amd64.deb && \
     export DEBIAN_FRONTEND=noninteractive && \
     apt-get install -y /var/tmp/libxml2-16.deb /var/tmp/libllvm22.deb /var/tmp/llvm-22-linker-tools.deb && \
     rm -f /var/tmp/libxml2-16.deb /var/tmp/libllvm22.deb /var/tmp/llvm-22-linker-tools.deb
