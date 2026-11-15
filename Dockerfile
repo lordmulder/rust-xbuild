@@ -1,6 +1,6 @@
 # Version
-ARG MY_RUST_VERS=1.99.0
-ARG MY_RUST_HASH=01dd4f9c24801cfc8ba9cf8a5dd6dcca451cd17d1ae73574edc22591de6e6816
+ARG MY_RUST_VERS=1.100.0
+ARG MY_RUST_HASH=e9d95b74296f7126a83ae3d041aeaba1ff4c478f13abc5cc034fcf7c131c3d4a
 
 # Rust version
 FROM rust:${MY_RUST_VERS}-slim-trixie@sha256:${MY_RUST_HASH}
@@ -44,9 +44,10 @@ RUN cargo install cargo-edit && \
     rm -rf /usr/local/cargo/.global-cache /usr/local/cargo/.package-cache /usr/local/cargo/.package-cache-mutate /usr/local/cargo/registry
 
 # Install LLVM linker tools
-RUN curl -sSf -o /var/tmp/libllvm23.deb http://ftp.debian.org/debian/pool/main/l/llvm-toolchain-23/libllvm23_23.1.2-1_amd64.deb && \
-    curl -sSf -o /var/tmp/llvm-23-linker-tools.deb http://ftp.debian.org/debian/pool/main/l/llvm-toolchain-23/llvm-23-linker-tools_23.1.2-1_amd64.deb && \
-    curl -sSf -o /var/tmp/libxml2-16.deb http://ftp.debian.org/debian/pool/main/libx/libxml2/libxml2-16_2.15.4+dfsg-1_amd64.deb && \
+
+RUN curl -sSf -o /var/tmp/libllvm23.deb http://ftp.debian.org/debian/pool/main/l/llvm-toolchain-23/libllvm23_23.1.5-2_amd64.deb && \
+    curl -sSf -o /var/tmp/llvm-23-linker-tools.deb http://ftp.debian.org/debian/pool/main/l/llvm-toolchain-23/llvm-23-linker-tools_23.1.5-2_amd64.deb && \
+    curl -sSf -o /var/tmp/libxml2-16.deb http://ftp.debian.org/debian/pool/main/libx/libxml2/libxml2-16_2.15.4+dfsg-1+b1_amd64.deb && \
     export DEBIAN_FRONTEND=noninteractive && \
     apt-get install -y /var/tmp/libxml2-16.deb /var/tmp/libllvm23.deb /var/tmp/llvm-23-linker-tools.deb && \
     rm -f /var/tmp/libxml2-16.deb /var/tmp/libllvm22.deb /var/tmp/llvm-22-linker-tools.deb
